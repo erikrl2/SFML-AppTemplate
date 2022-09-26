@@ -1,4 +1,4 @@
-Simple template for SFML projects.
+# SFML AppTemplate
 
 ## Getting started
 
