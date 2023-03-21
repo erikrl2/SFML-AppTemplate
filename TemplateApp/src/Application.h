@@ -2,29 +2,41 @@
 
 #include <SFML/Graphics.hpp>
 
-class Application
-{
-public:
-	virtual void Update(sf::Time ts) = 0;
-	virtual void OnEvent(sf::Event& event) = 0;
-public:
-	template<class App, class... Args>
-	static void Launch(Args... args)
+int main();
+
+namespace App {
+
+	struct AppSpecification
 	{
-		static_assert(std::is_base_of<Application, App>::value, "App is not a subclass of 'Application'");
+		std::string Name = "App";
+		uint32_t Width = 640;
+		uint32_t Height = 480;
+	};
 
-		sf::RenderWindow window;
-		App app(&window, std::forward<Args>(args)...);
+	class Application
+	{
+	public:
+		Application(const AppSpecification& specs);
+		virtual ~Application();
 
-		sf::Clock clock;
+		virtual void OnUpdate(sf::Time ts) = 0;
+		virtual void OnEvent(sf::Event& event) = 0;
 
-		while (window.isOpen())
-		{
-			sf::Event event;
-			while (window.pollEvent(event))
-				app.OnEvent(event);
+		sf::RenderWindow& GetWindow() { return m_Window; }
 
-			app.Update(clock.restart());
-		}
-	}
-};
+		static Application& Get() { return *s_App; }
+	private:
+		void Run();
+	private:
+		AppSpecification m_Specs;
+	protected:
+		sf::RenderWindow m_Window;
+	private:
+		inline static Application* s_App;
+		friend int ::main();
+	};
+
+	Application* CreateApplication();
+
+}
+

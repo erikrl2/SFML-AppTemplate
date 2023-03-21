@@ -7,15 +7,13 @@ namespace App {
 	class Game : public Application
 	{
 	public:
-		Game(sf::RenderWindow* renderWindow, const std::string& title);
-		virtual ~Game() = default;
+		Game(const AppSpecification& specs);
+		~Game() override;
 
-		virtual void Update(sf::Time ts) override;
-		virtual void OnEvent(sf::Event& event) override;
+		void OnUpdate(sf::Time ts) override;
+		void OnEvent(sf::Event& event) override;
 	private:
-		sf::RenderWindow* window = nullptr;
-
-		sf::CircleShape shape;
+		sf::CircleShape m_Shape;
 	};
 
 }

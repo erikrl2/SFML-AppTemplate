@@ -22,12 +22,12 @@ project "TemplateApp" -- TODO: Rename
 	includedirs
 	{
 		"src",
-		"vendor/SFML-2.5.1/include"
+		"vendor/SFML/include"
 	}
 
 	libdirs
 	{
-		"vendor/SFML-2.5.1/lib"
+		"vendor/SFML/lib"
 	}
 
 	links
@@ -70,3 +70,4 @@ project "TemplateApp" -- TODO: Rename
 			"sfml-audio-s.lib",
 			"sfml-network-s.lib"
 		}
+
